@@ -34,6 +34,24 @@ namespace Spring.Examples.MovieFinder
             //Using this id, an instance of the object so defined can be retrieved from 
             //the IApplicationContext reference like so...
             MovieLister lister = (MovieLister)ctx.GetObject("MyMovieLister");
+
+            /*
+             * When the MyMovieLister object is retrieved from (i.e. instantiated by) 
+             * the IApplicationContext in the application, the Spring.NET IoC container 
+             * will inject the reference to the MyMovieFinder object into the MovieFinder 
+             * property of the MyMovieLister object. The MovieLister object that is 
+             * referenced in the application is then fully configured and ready 
+             * to be used in the application to do what is does best... list movies by director.
+             * */
+            Movie[] movies = lister.MoviesDirectedBy("Robert Benigni");
+            Console.WriteLine("\nSearching for movie...\n");
+            foreach (Movie m in movies)
+            {
+                Console.WriteLine(
+                    string.Format("Movie Title = '{0}', Directory = '{1}'",
+                    m.Title, m.Director));
+            }
+            Console.WriteLine("\nMovieApp done.");
         }
     }
 
